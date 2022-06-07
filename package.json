@@ -1,19 +1,57 @@
 {
-  "name": "usetoast",
-  "private": true,
-  "version": "0.0.0",
+  "name": "@kayoshi-dev/usetoast",
+  "private": false,
+  "version": "0.0.3",
+  "description": "A simple Toast library",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/use-toast.umd.js",
+  "module": "./dist/use-toast.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/use-toast.es.js",
+      "require": "./dist/use-toast.umd.js"
+    }
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "prepare": "husky install"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.7",
+    "bootstrap-icons": "^1.8.2",
+    "esbuild": "^0.14.39",
+    "husky": "^8.0.1",
+    "lint-staged": "^12.4.1",
     "postcss": "^8.4.13",
+    "prettier": "^2.6.2",
     "tailwindcss": "^3.0.24",
     "vite": "^2.9.9"
   },
   "dependencies": {
     "uuid": "^8.3.2"
-  }
+  },
+  "lint-staged": {
+    "*.{js,css,md}": "prettier --write"
+  },
+  "directories": {
+    "lib": "lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kayoshi-dev/useToast.git"
+  },
+  "keywords": [
+    "toast",
+    "notification"
+  ],
+  "author": "Kayoshi-dev",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kayoshi-dev/useToast/issues"
+  },
+  "homepage": "https://github.com/Kayoshi-dev/useToast#readme"
 }

@@ -1,26 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite App</title>
-  </head>
-  <body>
-    <div id="app"></div>
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Vite App</title>
+    </head>
+    <body>
+        <div id="app"></div>
 
-    <button id="trigger">Trigger</button>
+        <button id="trigger">Trigger</button>
 
-    <script type="module">
-      import useToast from "./lib/useToast";
+        <script type="module">
+            import useToast from './lib'
 
-      const [showToast, hideToast] = useToast("app");
+            const [showToast, hideToast] = useToast('app')
+            //
+            // import useTest from './lib'
+            // document.getElementById('trigger').addEventListener('click', () => {
+            //     useTest.showToast('Hello World!', "success", "<i class=\"bi bi-archive\"></i>", 10000)
+            // })
+            //
+            //
+            console.log(document.getElementById('trigger'))
 
-      console.log(document.getElementById("trigger"));
-
-      document.getElementById("trigger").addEventListener("click", () => {
-        showToast("Hello World!");
-      });
-    </script>
-  </body>
+            document.getElementById('trigger').addEventListener('click', () => {
+                showToast('Hello World!', "success", "<i class=\"bi bi-archive\"></i>", 10000)
+            })
+        </script>
+    </body>
 </html>
