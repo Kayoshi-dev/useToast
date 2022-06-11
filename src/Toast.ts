@@ -1,5 +1,14 @@
 import { css, keyframes } from "goober";
 
+type IType = "success" | "info" | "error";
+
+interface IColorDefinition {
+  [key: string]: {
+    color: string;
+    backgroundColor: string;
+  };
+}
+
 // TODO Move JSS in an external file
 const fadein = keyframes`
   from { bottom: 0; opacity: 0; }
@@ -47,17 +56,33 @@ const Toast = css`
   color: rgb(107 114 128 / 1);
 `;
 
-const toastIcon = css`
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  width: 2rem;
-  height: 2rem;
-  border-radius: 0.5rem;
-  color: rgb(34 197 94 / 1);
-  background-color: rgb(220 252 231 / 1);
-`;
+const colorDefinition: IColorDefinition = {
+  success: {
+    color: "rgb(34 197 94 / 1)",
+    backgroundColor: "rgb(220 252 231 / 1)",
+  },
+  info: {
+    color: "rgb(59 130 246 / 1)",
+    backgroundColor: "rgb(219 234 254 / 1)",
+  },
+  error: {
+    color: "rgb(239 68 68 / 1)",
+    backgroundColor: "rgb(254 226 226 / 1)",
+  },
+};
+
+const toastIcon = (type: string) =>
+  css({
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    flexShrink: 0,
+    width: "2rem",
+    height: "2rem",
+    borderRadius: "0.5rem",
+    color: colorDefinition[type].color,
+    backgroundColor: colorDefinition[type].backgroundColor,
+  });
 
 const toastText = css`
   margin-left: 0.75rem;
@@ -88,8 +113,6 @@ const toastCloseButton = css`
   }
 `;
 
-type IType = "success" | "info" | "error";
-
 const useToast = (toastContainerId?: string) => {
   // Get the given container div or try to get the default one created by useToast()
   let toastContainer = document.getElementById(
@@ -116,7 +139,12 @@ const useToast = (toastContainerId?: string) => {
 
   // Create a new HTML Element representing the toast
   // If an icon is given, add a div to display it correctly
-  const createToastElement = (text: string, icon: string, duration = 3000) => {
+  const createToastElement = (
+    text: string,
+    type: string,
+    icon: string,
+    duration = 3000
+  ) => {
     const toast = document.createElement("div");
     toast.classList.add(Toast, fadeInToast);
     toast.ariaRoleDescription = "alert";
@@ -132,7 +160,7 @@ const useToast = (toastContainerId?: string) => {
     if (icon) {
       // Create the div that will contain the icon
       const iconDiv = document.createElement("div");
-      iconDiv.classList.add(toastIcon);
+      iconDiv.classList.add(toastIcon(type));
 
       // Prepend the icon that should look like "<i class="bi bi-archive"></i>"
       iconDiv.innerHTML = icon;
@@ -183,9 +211,7 @@ const useToast = (toastContainerId?: string) => {
     icon: string,
     duration?: number
   ) => {
-    console.log(text, type, icon, duration);
-
-    toastWrapper.prepend(createToastElement(text, icon, duration));
+    toastWrapper.prepend(createToastElement(text, type, icon, duration));
   };
 
   return { createToast };
