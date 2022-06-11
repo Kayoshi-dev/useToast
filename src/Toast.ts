@@ -44,6 +44,7 @@ const Toast = css`
   border-radius: 0.5rem;
   box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
   margin-bottom: 1rem;
+  color: rgb(107 114 128 / 1);
 `;
 
 const toastIcon = css`
@@ -152,13 +153,18 @@ const useToast = (toastContainerId?: string) => {
         </svg>`;
 
     // Auto remove the toast after {duration} time
-    setTimeout(() => {
+    const toastTimeout = setTimeout(() => {
       toast.classList.add(fadeOutToast);
 
       toast.addEventListener("animationend", () => {
         toast.remove();
       });
     }, duration);
+
+    closeButton.addEventListener("click", () => {
+      clearTimeout(toastTimeout);
+      toast.remove();
+    });
 
     return toast;
   };
