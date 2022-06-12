@@ -1,7 +1,7 @@
 {
   "name": "@kayoshi-dev/usetoast",
   "private": false,
-  "version": "0.0.4-beta.3",
+  "version": "0.0.4",
   "description": "A simple Toast library",
   "files": [
     "dist"
@@ -23,6 +23,7 @@
     "prepare": "husky install"
   },
   "devDependencies": {
+    "cypress": "^10.1.0",
     "husky": "^8.0.1",
     "lint-staged": "^13.0.1",
     "prettier": "^2.6.2",
