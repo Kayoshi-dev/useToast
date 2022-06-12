@@ -130,19 +130,23 @@ const useToast = (toastContainerId?: string) => {
     toastContainer = toastContainerElement;
   }
 
-  // Append the flex wrapper
-  const toastWrapper = document.createElement("div");
-  toastWrapper.id = "toastWrapper";
-  toastWrapper.classList.add(ToastWrapper);
+  let toastWrapper: HTMLElement;
 
-  toastContainer.append(toastWrapper);
+  // Append the flex wrapper
+  if (!document.getElementById("toastWrapper")) {
+    toastWrapper = document.createElement("div");
+    toastWrapper.id = "toastWrapper";
+    toastWrapper.classList.add(ToastWrapper);
+
+    toastContainer.append(toastWrapper);
+  }
 
   // Create a new HTML Element representing the toast
   // If an icon is given, add a div to display it correctly
   const createToastElement = (
     text: string,
-    type: string,
-    icon: string,
+    type: IType,
+    icon?: string,
     duration = 3000
   ) => {
     const toast = document.createElement("div");
@@ -208,7 +212,7 @@ const useToast = (toastContainerId?: string) => {
   const createToast = (
     text: string,
     type: IType,
-    icon: string,
+    icon?: string,
     duration?: number
   ) => {
     toastWrapper.prepend(createToastElement(text, type, icon, duration));
