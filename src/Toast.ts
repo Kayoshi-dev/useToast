@@ -35,7 +35,7 @@ const ToastContainer = css`
 const ToastWrapper = css`
   display: flex;
   flex-direction: column;
-  position: absolute;
+  position: fixed;
   top: 0.5rem;
   right: 0.5rem;
 `;
