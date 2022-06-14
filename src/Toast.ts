@@ -80,8 +80,7 @@ const toastIcon = (type: string) =>
     width: "2rem",
     height: "2rem",
     borderRadius: "0.5rem",
-    color: colorDefinition[type].color,
-    backgroundColor: colorDefinition[type].backgroundColor,
+    ...colorDefinition[type]
   });
 
 const toastText = css`
