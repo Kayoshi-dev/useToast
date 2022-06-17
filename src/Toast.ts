@@ -54,6 +54,7 @@ const Toast = css`
   box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
   margin-bottom: 1rem;
   color: rgb(107 114 128 / 1);
+  min-width: 185px;
 `;
 
 const colorDefinition: IColorDefinition = {
@@ -80,7 +81,7 @@ const toastIcon = (type: string) =>
     width: "2rem",
     height: "2rem",
     borderRadius: "0.5rem",
-    ...colorDefinition[type]
+    ...colorDefinition[type],
   });
 
 const toastText = css`
