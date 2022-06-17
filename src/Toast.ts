@@ -35,7 +35,7 @@ const ToastContainer = css`
 const ToastWrapper = css`
   display: flex;
   flex-direction: column;
-  position: absolute;
+  position: fixed;
   top: 0.5rem;
   right: 0.5rem;
 `;
@@ -54,6 +54,7 @@ const Toast = css`
   box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
   margin-bottom: 1rem;
   color: rgb(107 114 128 / 1);
+  min-width: 185px;
 `;
 
 const colorDefinition: IColorDefinition = {
@@ -80,8 +81,7 @@ const toastIcon = (type: string) =>
     width: "2rem",
     height: "2rem",
     borderRadius: "0.5rem",
-    color: colorDefinition[type].color,
-    backgroundColor: colorDefinition[type].backgroundColor,
+    ...colorDefinition[type],
   });
 
 const toastText = css`
@@ -130,19 +130,23 @@ const useToast = (toastContainerId?: string) => {
     toastContainer = toastContainerElement;
   }
 
-  // Append the flex wrapper
-  const toastWrapper = document.createElement("div");
-  toastWrapper.id = "toastWrapper";
-  toastWrapper.classList.add(ToastWrapper);
+  let toastWrapper: HTMLElement;
 
-  toastContainer.append(toastWrapper);
+  // Append the flex wrapper
+  if (!document.getElementById("toastWrapper")) {
+    toastWrapper = document.createElement("div");
+    toastWrapper.id = "toastWrapper";
+    toastWrapper.classList.add(ToastWrapper);
+
+    toastContainer.append(toastWrapper);
+  }
 
   // Create a new HTML Element representing the toast
   // If an icon is given, add a div to display it correctly
   const createToastElement = (
     text: string,
-    type: string,
-    icon: string,
+    type: IType,
+    icon?: string,
     duration = 3000
   ) => {
     const toast = document.createElement("div");
@@ -208,7 +212,7 @@ const useToast = (toastContainerId?: string) => {
   const createToast = (
     text: string,
     type: IType,
-    icon: string,
+    icon?: string,
     duration?: number
   ) => {
     toastWrapper.prepend(createToastElement(text, type, icon, duration));
